@@ -185,8 +185,7 @@ The library includes the following categories:
 The layouts developed in this project follow a common standard cell architecture with a fixed cell height of **1.76 µm**. Cells that have been physically implemented were designed using the same layout methodology and verified according to the 45 nm CMOS design rules.
 
 ![Standard Cell Library Classification](../images/architecture/library_cells_chart.png)
-
-**Figure 4.1:**Standard Cell Library Classification.
+**Figure 4.1:** Standard Cell Library Classification.
 
 
 ---
