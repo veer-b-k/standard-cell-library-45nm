@@ -170,25 +170,21 @@ Diffusion sharing was applied wherever possible during layout development while 
 
 ---
 
-# Standard Cells Developed
+# Standard Cell Library
 
-The following layouts were successfully designed in this work:
+The standard cell library developed in this project consists of a collection of basic logic gates, arithmetic cells, multiplexers, sequential elements, complex logic gates, buffers, and special-purpose cells. Together, these cells form the building blocks required for digital ASIC design.
 
-- Inverter
-- NAND Gate
-- NOR Gate
-- D Latch
-- Tri-State Buffer
-- DECAP Cell
-- FILLER Cell
-- TIE HIGH Cell
-- TIE LOW Cell
-- WELL TAP Cell
+The library includes the following categories:
 
-Each layout follows the same standard cell architecture and uses the common cell height of **1.76 µm**.
+- **Basic Logic:** Inverters, NAND, NOR, AND, and OR gates.
+- **Arithmetic Cells:** XOR, XNOR, Half Adder (HA), Half Subtractor (HS), Full Adder (FA), Full Subtractor (FS), and Multiplexers.
+- **Sequential Cells:** D Latches and D Flip-Flops with different configurations such as positive-edge, negative-edge, preset, and set variants.
+- **Complex Logic:** AOI (AND-OR-Invert), OAI (OR-AND-Invert), Buffers, Tri-State Buffers, Inverting Super Buffers, and Non-Inverting Super Buffers.
+- **Special Cells:** Scan D Flip-Flop (SDFF), FILLER, FILLER_MIN, ENDCAP, DECAP, WELL TAP, TIE HIGH, and TIE LOW cells.
 
-> **Figure:** Standard cell layouts will be added here.
+The layouts developed in this project follow a common standard cell architecture with a fixed cell height of **1.76 µm**. Cells that have been physically implemented were designed using the same layout methodology and verified according to the 45 nm CMOS design rules.
 
+> **Figure:** Standard Cell Library Classification
 ---
 
 # Design Rule Check (DRC)
