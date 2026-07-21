@@ -184,7 +184,11 @@ The library includes the following categories:
 
 The layouts developed in this project follow a common standard cell architecture with a fixed cell height of **1.76 µm**. Cells that have been physically implemented were designed using the same layout methodology and verified according to the 45 nm CMOS design rules.
 
-> **Figure:** Standard Cell Library Classification
+![Standard Cell Library Classification](../images/architecture/library_cells_chart.png)
+
+**Figure 4.1:**Standard Cell Library Classification.
+
+
 ---
 
 # Design Rule Check (DRC)
@@ -204,7 +208,6 @@ The verification checks include:
 
 All layouts passed DRC successfully without violations.
 
-> **Figure:** DRC verification result
 
 ---
 
@@ -223,7 +226,7 @@ Successful LVS confirms that:
 
 All standard cells successfully passed LVS verification.
 
-> **Figure:** LVS verification result
+
 
 ---
 
@@ -235,7 +238,10 @@ The extracted view includes parasitic resistances and capacitances introduced by
 
 This extracted netlist provides a more accurate representation of circuit behavior and is used during timing characterization and delay analysis.
 
-> **Figure:** Extracted layout view
+![ Extracted layout view](../images/extracted/inverter_extracted.png.png)
+
+**Figure 4.2:** Extracted layout view.
+
 
 ---
 
