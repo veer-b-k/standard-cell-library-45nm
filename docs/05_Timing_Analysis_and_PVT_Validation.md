@@ -86,28 +86,57 @@ Sequential circuits such as latches and flip-flops require input data to remain 
 
 The two most important timing parameters for sequential circuits are setup time and hold time.
 
+# Setup and Hold Time Analysis
+
+Sequential circuits such as latches and flip-flops require input data to remain stable around the active clock edge. If the input changes too close to the clock transition, incorrect data may be captured, leading to timing violations.
+
+The two most important timing parameters for sequential circuits are **setup time** and **hold time**.
+
 ## Setup Time
 
-Setup time is the minimum duration for which the input data must remain stable **before** the active clock edge.
+Setup time is the minimum duration for which the input data must remain stable **before** the active clock edge of the clock signal. If the data changes within this interval, the flip-flop may fail to capture the correct value or enter a metastable state.
 
-If this requirement is violated, the flip-flop may capture incorrect data or enter a metastable state.
+To determine the setup time of the designed flip-flop, the following procedure was adopted:
 
-Setup time is therefore an important parameter in determining the maximum operating frequency of a synchronous digital system.
+1. A clock signal with a pulse width of **10 ns** (100 MHz frequency) was applied.
+2. Initially, the data transition from **0 → 1** was placed **10 ns before** the active clock edge. At this point, the data arrives much earlier than required and is therefore assumed to have **infinite setup time**.
+3. The **Clock-to-Q (C-Q) delay** was measured from the **50% point of the clock edge** to the **50% point of the output transition**.
+4. The input data transition was then gradually moved closer to the active clock edge while measuring the corresponding C-Q delay.
+5. For each simulation, the measured C-Q delay was compared with the reference value obtained under infinite setup time conditions.
+6. When the C-Q delay increased by approximately **10%** compared to the reference delay, the corresponding data arrival instant was identified.
+7. The time difference between the data transition and the active clock edge at this point was recorded as the **setup time** of the flip-flop.
+
+### Infinite Setup Time
+
+Infinite setup time does **not** imply an actual infinite duration. It refers to a condition in which the input data is applied **sufficiently earlier than the clock edge**, ensuring that the flip-flop has ample time to capture the input without any timing limitation.
+
+In this work, a data transition occurring **10 ns before the active clock edge** was considered as an infinite setup time because it is much larger than the actual setup time of the flip-flop. This condition serves as the reference for measuring the Clock-to-Q delay.
 
 > **Figure 5.4:** Setup Time Measurement
 
+---
+
 ## Hold Time
 
-Hold time is the minimum duration for which the input data must remain stable **after** the active clock edge.
+Hold time is the minimum duration for which the input data must remain stable **after** the active clock edge. If the data changes before this interval has elapsed, the flip-flop may capture incorrect information.
 
-A violation of the hold time requirement may also result in incorrect data being stored because the input changes before the internal storage nodes have settled.
+The hold time of the flip-flop was measured using the following procedure:
 
-Hold time analysis ensures that data remains stable long enough for reliable operation of sequential circuits.
+1. A clock signal with a pulse width of **10 ns** (100 MHz frequency) was applied.
+2. Initially, the data transition from **0 → 1** was placed **10 ns before** the active clock edge. This condition represents an **infinite hold time**, where the input remains stable well beyond the required hold interval.
+3. The data transition was gradually shifted closer to the active clock edge.
+4. The point at which the output successfully transitioned from **0 → 1** was observed.
+5. The time difference between the active clock edge and the data transition at this limiting condition was recorded as the **hold time** of the flip-flop.
+
+### Infinite Hold Time
+
+Similar to infinite setup time, **infinite hold time** is a reference condition rather than a physically infinite interval. It indicates that the input data remains stable for a duration that is significantly longer than the expected hold time requirement.
+
+By starting from this safe operating condition and progressively reducing the timing margin, the minimum hold time required for reliable operation can be accurately determined.
 
 > **Figure 5.5:** Hold Time Measurement
 
-In this project, setup time and hold time analyses were performed after successful layout verification. The timing behaviour of representative sequential cells was evaluated to verify that the proposed standard cell library satisfies the required timing constraints before proceeding to PVT validation.
-
+The measured setup time and hold time were subsequently used for PVT analysis to evaluate the timing robustness of the designed sequential cells under different operating conditions.
 ---
 # Process, Voltage and Temperature (PVT) Analysis
 
