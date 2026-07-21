@@ -49,7 +49,70 @@ The DRC process ensured that all layouts satisfied the fabrication constraints s
 LVS verification was then performed to compare the extracted layout netlist with the original schematic. The LVS results confirmed that the electrical connectivity of the layouts matched their corresponding schematics, ensuring functional correctness.
 
 The successful completion of both DRC and LVS verification demonstrates the correctness and manufacturability of the developed standard cells.
+# Timing Analysis Results
 
+Timing analysis was performed to evaluate the switching performance of the developed standard cells. Propagation delay measurements were carried out on representative combinational cells using Spectre simulations at the schematic level, while setup and hold time analyses were performed on representative sequential cells after layout implementation.
+
+The measured propagation delays were used to determine the optimum beta ratio for the inverter, NAND, and NOR gates. A common beta ratio of **1.5** was selected for the standard cell library, providing balanced switching characteristics while maintaining a consistent layout methodology.
+
+The setup and hold time measurements confirmed that the designed sequential cells satisfy the required timing constraints for reliable operation. The results demonstrate that the proposed library provides stable timing performance suitable for digital ASIC applications.
+
+> **Figure 6.4:** Summary of Timing Analysis Results
+
+---
+
+# PVT Validation Results
+
+The robustness of the developed standard cell library was verified through Process-Voltage-Temperature (PVT) analysis using representative cells.
+
+Performance was evaluated under the TT, FF, and SS process corners while varying the supply voltage from **1.62 V** to **1.98 V** and the operating temperature from **−40°C** to **125°C**.
+
+The analysis showed that although the optimum beta ratio varies slightly under different operating conditions, the selected common beta ratio of **1.5** maintains balanced performance with only minor degradation. Similarly, the measured setup times remained within acceptable limits across all evaluated PVT conditions.
+
+These results confirm that the proposed standard cell library exhibits reliable operation over a wide range of manufacturing and environmental conditions.
+
+> **Figure 6.5:** Summary of PVT Validation Results
+
+---
+
+# Developed Standard Cell Library
+
+The developed 45 nm CMOS standard cell library includes a collection of representative digital logic cells commonly used in ASIC design. The library consists of combinational logic gates, arithmetic cells, sequential elements, and supporting utility cells developed using a common design methodology.
+
+The library includes the following categories of cells:
+
+- Basic combinational logic cells (Inverter, Buffer, NAND, NOR, XOR, XNOR)
+- Arithmetic cells (Half Adder, Full Adder)
+- Multiplexing logic (2:1 Multiplexer)
+- Sequential cells (D Latches and D Flip-Flops)
+- Special-purpose cells (Tie High and Tie Low)
+
+Each cell follows a consistent architecture, transistor sizing methodology, and physical layout style, enabling their integration into larger digital systems.
+
+---
+
+# Overall Project Achievements
+
+The major achievements of this project are summarized below.
+
+- Successfully designed a representative **45 nm CMOS Standard Cell Library** for ASIC applications.
+- Determined the optimum beta ratios for representative combinational logic cells through propagation delay analysis.
+- Selected a common beta ratio of **1.5** for standardized library implementation.
+- Developed compact physical layouts with a uniform standard cell height of **1.76 µm**.
+- Successfully verified representative layouts using **Design Rule Check (DRC)** and **Layout Versus Schematic (LVS)** verification.
+- Performed propagation delay, setup time, and hold time analyses for timing validation.
+- Evaluated library robustness through Process-Voltage-Temperature (PVT) analysis.
+- Established a consistent design methodology suitable for future expansion of the standard cell library.
+
+---
+
+# Conclusion
+
+This chapter presented the overall results obtained during the development of the proposed 45 nm CMOS standard cell library. The results demonstrate that the adopted design methodology successfully achieves balanced transistor sizing, efficient physical layout implementation, successful physical verification, and reliable timing performance.
+
+The PVT analysis further confirms that the representative cells maintain stable operation across different manufacturing and environmental conditions. Together, these results validate the effectiveness of the developed library and demonstrate its suitability for digital ASIC design applications.
+
+The developed standard cell library provides a strong foundation for future work involving complete cell characterization, Liberty (.lib) generation, automated synthesis flows, and larger-scale ASIC implementations.
 > **Figure 6.2:** DRC Verification Results
 
 > **Figure 6.3:** LVS Verification Results
