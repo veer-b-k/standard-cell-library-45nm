@@ -2,129 +2,150 @@
 
 ## Introduction
 
-Timing analysis is an essential step in the development of a standard cell library. It evaluates the speed and reliability of digital circuits by measuring how quickly logic signals propagate through a circuit under different operating conditions.
+Timing analysis is one of the most important stages in the development of a standard cell library. It is performed to evaluate the speed, reliability, and robustness of digital circuits under different operating conditions. The timing characteristics of a logic cell determine the maximum operating frequency of a digital system and directly influence the overall performance of an ASIC.
 
-In this project, timing analysis was performed after the layout development stage to validate the performance of the designed standard cells. The analysis focused on propagation delay, setup time, hold time, and Process-Voltage-Temperature (PVT) variations. These analyses help ensure that the proposed standard cell library operates reliably under different manufacturing and environmental conditions.
+After completing the transistor sizing and layout development, it is necessary to verify that the designed cells satisfy the required timing specifications. This includes measuring propagation delay, setup time, hold time, and evaluating the effect of process, voltage, and temperature (PVT) variations on circuit performance.
 
-Unlike a complete commercial standard cell characterization flow, this work evaluates representative cells to verify the design methodology and timing performance of the proposed library.
+In this project, timing analysis was carried out using **Cadence Virtuoso** with the **Spectre simulator**. Propagation delay measurements were performed using the schematic netlists during beta ratio optimization, while setup and hold time analyses were performed after layout development. Furthermore, representative cells were analyzed under different PVT conditions to validate the robustness of the proposed 45 nm CMOS standard cell library.
+
+Unlike commercial standard cell libraries that perform complete characterization for every cell, this work focuses on representative combinational and sequential cells to validate the design methodology and timing performance of the developed library.
 
 ---
 
 # Objectives
 
-The objectives of timing analysis and PVT validation were:
+The objectives of timing analysis and PVT validation are:
 
-- Measure the propagation delay of selected logic cells.
-- Evaluate setup and hold time for sequential circuits.
-- Study the effect of process, voltage, and temperature variations.
-- Validate the robustness of the selected common beta ratio.
-- Ensure reliable operation across different operating conditions.
+- To evaluate the propagation delay of representative logic cells.
+- To determine the setup and hold time of sequential circuits.
+- To study the influence of process, voltage, and temperature variations.
+- To validate the robustness of the selected beta ratio.
+- To verify reliable operation of the proposed standard cell library under different operating conditions.
 
 ---
 
 # Timing Analysis Methodology
 
-The timing analysis was carried out using Cadence Virtuoso and the Spectre simulator.
-
-The methodology adopted in this project is summarized below:
+The timing verification methodology adopted in this project is illustrated below.
 
 1. Design the transistor-level schematic.
 2. Perform beta ratio optimization.
 3. Develop the physical layout.
 4. Verify the layout using DRC and LVS.
-5. Perform setup and hold time analysis.
-6. Measure propagation delay using the schematic netlist.
-7. Evaluate performance under different PVT corners.
+5. Perform timing analysis.
+6. Measure setup and hold time.
+7. Evaluate the design under different PVT conditions.
+8. Validate the timing performance of the standard cell library.
 
-> **Figure:** Timing Analysis Flow
+> **Figure 5.1:** Timing Analysis Flow
+
+The timing simulations were carried out using Cadence Spectre simulator. During beta ratio optimization, propagation delay was measured from schematic simulations to determine the optimum PMOS-to-NMOS sizing ratio. After completing the layout verification, sequential timing parameters such as setup time and hold time were analyzed. Finally, Process-Voltage-Temperature (PVT) analysis was performed on representative cells to evaluate the robustness of the proposed library.
 
 ---
 
 # Propagation Delay Analysis
 
-Propagation delay is the time required for a change at the input of a logic gate to appear at its output. It is one of the most important performance parameters in digital circuit design because it directly affects the maximum operating frequency of a digital system.
+Propagation delay is the time required for a change at the input of a logic gate to appear at its output. It is one of the most important performance parameters because it determines the speed of digital circuits.
 
-Propagation delay is generally measured as:
+Whenever the input changes state, the output does not switch instantaneously due to the charging and discharging of internal capacitances. This finite switching time is called propagation delay.
 
-- **Rise Delay (tPLH):** Time taken for the output to transition from LOW to HIGH.
-- **Fall Delay (tPHL):** Time taken for the output to transition from HIGH to LOW.
+Two propagation delay parameters are commonly measured:
 
-The average propagation delay is calculated as:
+- **Rise Delay (tPLH):** Time required for the output to transition from LOW to HIGH.
+- **Fall Delay (tPHL):** Time required for the output to transition from HIGH to LOW.
+
+The average propagation delay is calculated using
 
 \[
 t_{pd}=\frac{t_{PLH}+t_{PHL}}{2}
 \]
 
-During this work, propagation delay analysis was performed using the **schematic netlist** rather than the extracted layout netlist. This approach was used during beta ratio optimization to compare the switching performance of the inverter, NAND gate, and NOR gate.
+During this work, propagation delay measurements were performed using the schematic netlists of the designed logic gates. These simulations were carried out during beta ratio optimization to determine the optimum transistor sizing for the inverter, NAND gate, and NOR gate.
 
-The measured delays were used to identify the optimum beta ratio for each logic cell before selecting the common beta ratio for the standard cell library.
+The measured rise and fall delays were compared for different PMOS widths while maintaining the NMOS width constant at **120 nm**. The optimum beta ratio for each logic gate was selected by minimizing the difference between rise and fall delays.
 
-> **Figure:** Spectre Simulation Setup
+The obtained optimum beta ratios were:
 
-> **Figure:** Propagation Delay Waveform
+| Logic Cell | Optimum Beta Ratio |
+|------------|-------------------:|
+| Inverter | 1.55 |
+| NAND Gate | 1.2875 |
+| NOR Gate | 1.90 |
+
+Based on these results, a common beta ratio of **1.5** was selected for the proposed standard cell library. This provides balanced switching characteristics while maintaining a uniform transistor sizing strategy across different cells.
+
+> **Figure 5.2:** Spectre Simulation Testbench
+
+> **Figure 5.3:** Propagation Delay Waveform
 
 ---
 
 # Setup and Hold Time Analysis
 
-Sequential circuits require stable input data around the active clock edge to ensure correct operation.
+Sequential circuits such as latches and flip-flops require input data to remain stable around the active clock edge. If the input changes too close to the clock transition, incorrect data may be captured, leading to timing violations.
 
-Two important timing parameters are:
+The two most important timing parameters for sequential circuits are setup time and hold time.
 
 ## Setup Time
 
 Setup time is the minimum duration for which the input data must remain stable **before** the active clock edge.
 
-If the input changes during this interval, incorrect data may be captured by the flip-flop or latch.
+If this requirement is violated, the flip-flop may capture incorrect data or enter a metastable state.
+
+Setup time is therefore an important parameter in determining the maximum operating frequency of a synchronous digital system.
+
+> **Figure 5.4:** Setup Time Measurement
 
 ## Hold Time
 
 Hold time is the minimum duration for which the input data must remain stable **after** the active clock edge.
 
-Violating the hold time requirement may also result in incorrect data being stored.
+A violation of the hold time requirement may also result in incorrect data being stored because the input changes before the internal storage nodes have settled.
 
-After completing the layout development, setup and hold time analysis was performed to evaluate the timing behavior of the sequential cells under different operating conditions.
+Hold time analysis ensures that data remains stable long enough for reliable operation of sequential circuits.
 
-> **Figure:** Setup Time Measurement
+> **Figure 5.5:** Hold Time Measurement
 
-> **Figure:** Hold Time Measurement
+In this project, setup time and hold time analyses were performed after successful layout verification. The timing behaviour of representative sequential cells was evaluated to verify that the proposed standard cell library satisfies the required timing constraints before proceeding to PVT validation.
 
 ---
-
 # Process, Voltage and Temperature (PVT) Analysis
 
-Integrated circuits do not always operate under ideal conditions. Manufacturing variations, supply voltage fluctuations, and environmental temperature changes affect transistor characteristics and circuit performance.
+Integrated circuits rarely operate under ideal conditions throughout their lifetime. Variations in semiconductor manufacturing, supply voltage, and operating temperature influence transistor characteristics, which in turn affect circuit speed, power consumption, and reliability.
 
-PVT analysis evaluates circuit behavior under these different operating conditions to ensure reliable functionality.
+To ensure that a standard cell library performs correctly under practical operating conditions, it is necessary to evaluate its behaviour using **Process-Voltage-Temperature (PVT)** analysis. This analysis verifies that the designed cells continue to function reliably despite variations introduced during fabrication and operation.
+
+The PVT analysis performed in this project focuses on representative combinational and sequential cells to validate the robustness of the proposed 45 nm CMOS standard cell library.
 
 ---
 
 # Process Variation
 
-Process variation represents the differences introduced during semiconductor fabrication. These variations affect parameters such as threshold voltage, carrier mobility, and channel dimensions.
+Process variation refers to the unavoidable differences that occur during semiconductor fabrication. These variations slightly modify transistor parameters such as threshold voltage, channel length, oxide thickness, and carrier mobility.
 
-The following process corners were analyzed:
+To evaluate these effects, three standard process corners were considered.
 
-- **Typical-Typical (TT):** Represents nominal manufacturing conditions.
-- **Fast-Fast (FF):** Both NMOS and PMOS transistors operate faster than nominal.
-- **Slow-Slow (SS):** Both NMOS and PMOS transistors operate slower than nominal.
+- **TT (Typical-Typical):** Represents nominal fabrication conditions.
+- **FF (Fast-Fast):** Represents faster NMOS and PMOS devices with higher drive strength.
+- **SS (Slow-Slow):** Represents slower devices due to manufacturing variations.
 
-Testing these corners ensures that the standard cell library performs reliably despite manufacturing variations.
+Evaluating these corners helps ensure that the designed cells maintain acceptable timing performance even when fabrication parameters vary.
 
 ---
 
 # Voltage Variation
 
-Supply voltage has a direct impact on transistor switching speed.
+Supply voltage directly influences transistor switching speed.
 
-- Higher supply voltage generally reduces propagation delay by increasing transistor drive strength.
-- Lower supply voltage increases propagation delay because transistors switch more slowly.
+An increase in supply voltage improves transistor drive strength and generally reduces propagation delay. Conversely, reducing the supply voltage decreases drive current and increases switching delay.
 
-The inverter was analyzed over the allowable operating voltage range:
+The following supply voltages were considered during PVT analysis.
 
-- **Minimum Voltage:** 1.62 V
-- **Nominal Voltage:** 1.80 V
-- **Maximum Voltage:** 1.98 V
+| Operating Condition | Supply Voltage |
+|--------------------|---------------:|
+| SS | 1.62 V |
+| TT | 1.80 V |
+| FF | 1.98 V |
 
 ---
 
@@ -132,58 +153,69 @@ The inverter was analyzed over the allowable operating voltage range:
 
 Temperature affects carrier mobility inside MOS transistors.
 
-As temperature increases, carrier mobility decreases, leading to slower transistor switching and increased propagation delay.
+As the operating temperature increases, carrier mobility decreases, causing transistors to switch more slowly and increasing propagation delay. Lower temperatures generally improve switching speed but may also alter timing characteristics.
 
-At lower temperatures, transistor characteristics also change, affecting delay and timing performance.
+The following temperatures were considered.
 
-The following temperatures were evaluated:
+| Process Corner | Temperature |
+|---------------|------------:|
+| FF | −40°C |
+| TT | 27°C |
+| SS | 125°C |
 
-- **−40°C**
-- **27°C**
-- **125°C**
-
-This analysis confirms reliable operation across a wide environmental range.
+The combined effect of process, voltage, and temperature variations provides a realistic estimate of circuit performance under different operating environments.
 
 ---
 
-# PVT Analysis of the Inverter
+# PVT Analysis of Inverter
 
-The inverter was selected as the representative combinational cell for PVT analysis.
+The inverter was selected as the representative combinational cell for PVT analysis because it is the fundamental building block of digital logic. The objective of this analysis was to study the influence of process, voltage, and temperature variations on the optimum beta ratio and the resulting performance loss.
 
-Performance was evaluated under different process, voltage, and temperature conditions.
+The performance of the inverter was evaluated for beta ratios ranging from **0.8 to 2.0** under TT, FF, and SS operating conditions.
 
-### Typical (TT)
+> **Figure 5.6:** Performance Loss of Inverter under Different PVT Conditions
 
-- Supply Voltage: **1.8 V**
-- Temperature: **27°C**
-- Beta Ratio: **1.55**
-- Performance Loss: Negligible
+The measured performance loss for each beta ratio is summarized in Table 5.1.
 
-### Fast-Fast (FF)
+### Table 5.1 Performance Loss of Inverter under Different PVT Conditions
 
-- Supply Voltage: **1.98 V**
-- Temperature: **−40°C**
-- Beta Ratio: **1.73**
-- Performance Loss: Negligible
+| Beta Ratio | TT (1.8 V, 27°C) | FF (1.98 V, −40°C) | SS (1.62 V, 125°C) |
+|-----------:|-----------------:|-------------------:|-------------------:|
+| 0.8 | 2.72 | 3.36 | 0.82 |
+| 0.9 | 2.97 | 3.35 | 0.59 |
+| 1.0 | 3.02 | 3.25 | 0.11 |
+| 1.1 | 2.59 | 2.92 | **0.00** |
+| 1.2 | 2.10 | 2.58 | 0.29 |
+| 1.3 | 1.56 | 2.14 | 0.74 |
+| 1.4 | 0.94 | 1.68 | 1.30 |
+| 1.5 | 0.31 | 1.16 | 1.90 |
+| 1.6 | **0.103** | 0.63 | 2.64 |
+| 1.7 | 1.05 | **0.13** | 3.40 |
+| 1.8 | 1.75 | 0.48 | 4.25 |
+| 1.9 | 2.47 | 1.04 | 5.07 |
+| 2.0 | 2.85 | 1.68 | 5.93 |
 
-### Slow-Slow (SS)
+From Table 5.1, it can be observed that the optimum beta ratio varies with operating conditions.
 
-- Supply Voltage: **1.62 V**
-- Temperature: **125°C**
-- Beta Ratio: **1.10**
-- Performance Loss: Approximately **1.9%**
+Under the **TT corner**, the minimum performance loss is observed near a beta ratio of **1.6**, while the selected design value of **1.55** provides nearly identical performance with balanced rise and fall delays.
 
-The results demonstrate that the inverter maintains acceptable timing performance across all evaluated PVT conditions.
+For the **FF corner**, the optimum beta ratio shifts to approximately **1.7**, indicating that faster transistors require a slightly larger PMOS width to maintain balanced switching behaviour.
 
-> **Figure:** Inverter PVT Analysis
+Under the **SS corner**, the optimum beta ratio decreases to approximately **1.1**, which compensates for the slower transistor characteristics under reduced supply voltage and elevated temperature.
+
+Although the optimum beta ratio changes with operating conditions, the selected common library beta ratio of **1.5** maintains acceptable performance across all evaluated PVT corners. This confirms that a single beta ratio can be used throughout the standard cell library without introducing significant performance degradation.
+
+Overall, the inverter demonstrates reliable operation over the evaluated voltage range of **1.62 V to 1.98 V** and temperature range of **−40°C to 125°C**, validating the robustness of the proposed design methodology.
 
 ---
 
 # PVT Analysis of Setup Time
 
-The effect of process and temperature variation on setup time was also evaluated.
+The influence of process and temperature variations on sequential timing was also evaluated through setup time analysis.
 
-## Process Variation
+The measured setup times under different operating conditions are presented below.
+
+### Process Variation
 
 | Process Corner | Setup Time |
 |---------------|-----------:|
@@ -191,43 +223,44 @@ The effect of process and temperature variation on setup time was also evaluated
 | SS | 39.6 ps |
 | FF | 46.2 ps |
 
-## Temperature Variation
+### Temperature Variation
 
 | Operating Condition | Setup Time |
-|---------------------|-----------:|
+|--------------------|-----------:|
 | TT at 125°C | 48.9 ps |
 | TT at −40°C | 44.8 ps |
 | FF at −40°C | 38 ps |
 
-These results indicate that setup time changes with both process and temperature variations.
+> **Figure 5.7:** Setup Time Variation under Different PVT Conditions
 
-Fast process conditions combined with lower temperatures produce the lowest setup time, while higher temperatures generally increase the timing requirement due to reduced carrier mobility.
+The results indicate that setup time is influenced by both process and temperature variations.
 
-> **Figure:** Setup Time PVT Analysis
+Higher temperatures generally increase the setup time because reduced carrier mobility slows transistor switching. Faster process conditions combined with lower temperatures reduce the setup time due to improved transistor drive capability.
+
+The observed variations remain within acceptable limits, demonstrating that the designed sequential cells maintain reliable timing behaviour under different operating conditions.
 
 ---
 
 # Results and Discussion
 
-The timing analysis confirms that the proposed standard cell library maintains reliable operation across the evaluated operating conditions.
+The timing analysis and PVT validation confirm the effectiveness of the proposed standard cell library design methodology.
 
-The major observations are:
+The major observations obtained from the analysis are summarized below.
 
-- Propagation delay analysis enabled optimum beta ratio selection.
-- A common beta ratio of **1.5** provides balanced performance for the standard cell library.
-- The inverter maintained stable performance under TT, FF, and SS process corners.
-- Setup time varies with process and temperature but remains within acceptable limits.
-- The evaluated operating range of **1.62 V to 1.98 V** and **−40°C to 125°C** demonstrates the robustness of the proposed design.
+- Propagation delay measurements were successfully used to determine the optimum beta ratio for inverter, NAND, and NOR gates.
+- A common beta ratio of **1.5** provides a good compromise between performance, layout regularity, and library standardization.
+- The inverter maintained stable operation under TT, FF, and SS process corners with only minor performance degradation.
+- Setup time varies with process and temperature, highlighting the importance of timing verification for sequential circuits.
+- The proposed library demonstrates reliable operation over a supply voltage range of **1.62 V to 1.98 V** and a temperature range of **−40°C to 125°C**.
 
-Overall, the timing analysis validates the effectiveness of the selected design methodology for the 45 nm CMOS standard cell library.
+These results validate the robustness of the developed 45 nm CMOS standard cell library and demonstrate its suitability for ASIC design applications.
 
 ---
 
 # Conclusion
 
-Timing analysis and PVT validation play a critical role in verifying the performance of digital standard cells before their use in ASIC design.
+Timing verification is an essential stage in the development of a reliable standard cell library. In this project, propagation delay analysis, setup and hold time measurements, and PVT validation were performed on representative combinational and sequential cells developed using 45 nm CMOS technology.
 
-In this project, propagation delay analysis, setup and hold time evaluation, and PVT analysis were performed on representative cells to validate the proposed library. The results demonstrate that the selected common beta ratio and design methodology provide reliable operation over a wide range of manufacturing and environmental conditions.
+The analysis confirms that the selected transistor sizing strategy provides balanced performance while maintaining a consistent standard cell architecture. Although the optimum beta ratio changes under different PVT conditions, the selected common beta ratio of **1.5** offers reliable operation with minimal performance degradation across the evaluated operating range.
 
-The successful timing validation confirms that the developed standard cell library is suitable for further digital circuit design and ASIC implementation.
-
+The successful timing validation demonstrates that the developed standard cell library is robust, reliable, and suitable for further digital circuit design and ASIC implementation.
