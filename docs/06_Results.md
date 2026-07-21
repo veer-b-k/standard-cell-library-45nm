@@ -36,16 +36,13 @@ During layout development, careful attention was given to transistor folding, di
 
 The developed layouts include combinational logic cells such as inverters, NAND gates, NOR gates, XOR gates, multiplexers, and arithmetic cells, along with representative sequential elements. All layouts follow a consistent design methodology suitable for standard cell library development.
 
-![NAND Gate Beta Ratio Analysis](../images/layouts/inverter_layout.png)
-
+![inverter Layout](../images/layouts/inverter_layout.png)
 **Figure 6.1:** inverter Layout
 
 ![d_latch_layout](../images/layouts/d_latch_layout.png)
-
 **Figure 6.2:** d_latch_layout
 
 ![tristate_buffer_layout](../images/layouts/tristate_buffer_layout.png)
-
 **Figure 6.3:** tristate_buffer_layout
 
 ---
@@ -81,7 +78,6 @@ The analysis showed that although the optimum beta ratio varies slightly under d
 These results confirm that the proposed standard cell library exhibits reliable operation over a wide range of manufacturing and environmental conditions.
 
 ![Summary of PVT Validation Results](../images/pvt/inverter_pvt_table.png)
-
 **Figure 6.4:** Summary of PVT Validation Results
 
 
