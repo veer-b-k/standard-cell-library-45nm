@@ -37,7 +37,7 @@ The timing verification methodology adopted in this project is illustrated below
 7. Evaluate the design under different PVT conditions.
 8. Validate the timing performance of the standard cell library.
 
-> **Figure 5.1:** Timing Analysis Flow
+
 
 The timing simulations were carried out using Cadence Spectre simulator. During beta ratio optimization, propagation delay was measured from schematic simulations to determine the optimum PMOS-to-NMOS sizing ratio. After completing the layout verification, sequential timing parameters such as setup time and hold time were analyzed. Finally, Process-Voltage-Temperature (PVT) analysis was performed on representative cells to evaluate the robustness of the proposed library.
 
@@ -74,13 +74,12 @@ The obtained optimum beta ratios were:
 
 Based on these results, a common beta ratio of **1.5** was selected for the proposed standard cell library. This provides balanced switching characteristics while maintaining a uniform transistor sizing strategy across different cells.
 
-> **Figure 5.2:** Spectre Simulation Testbench
 
-> **Figure 5.3:** Propagation Delay Waveform
+![Spectre Simulation Testbench](../images/scripts/spectre_output.png)
+
+**Figure 5.1:** Spectre Simulation Testbench.
 
 ---
-
-
 
 # Setup and Hold Time Analysis
 
@@ -108,7 +107,10 @@ Infinite setup time does **not** imply an actual infinite duration. It refers to
 
 In this work, a data transition occurring **10 ns before the active clock edge** was considered as an infinite setup time because it is much larger than the actual setup time of the flip-flop. This condition serves as the reference for measuring the Clock-to-Q delay.
 
-> **Figure 5.4:** Setup Time Measurement
+![Setup Time Measurement](../images/timing/setup_time_analysis.png)
+
+**Figure 5.2:** Setup Time Measurement.
+
 
 ---
 
@@ -130,7 +132,10 @@ Similar to infinite setup time, **infinite hold time** is a reference condition 
 
 By starting from this safe operating condition and progressively reducing the timing margin, the minimum hold time required for reliable operation can be accurately determined.
 
-> **Figure 5.5:** Hold Time Measurement
+![Hold Time Measurement](../images/timing/hold_time_analysis.png)
+
+**Figure 5.3:** Hold Time Measurement.
+
 
 The measured setup time and hold time were subsequently used for PVT analysis to evaluate the timing robustness of the designed sequential cells under different operating conditions.
 ---
@@ -198,7 +203,10 @@ The inverter was selected as the representative combinational cell for PVT analy
 
 The performance of the inverter was evaluated for beta ratios ranging from **0.8 to 2.0** under TT, FF, and SS operating conditions.
 
-> **Figure 5.6:** Performance Loss of Inverter under Different PVT Conditions
+![Performance Loss of Inverter under Different PVT Conditions](../images/pvt/performance_loss_corner.png)
+
+**Figure 5.4:** Performance Loss of Inverter under Different PVT Conditions
+
 
 The measured performance loss for each beta ratio is summarized in Table 5.1.
 
@@ -256,7 +264,6 @@ The measured setup times under different operating conditions are presented belo
 | TT at −40°C | 44.8 ps |
 | FF at −40°C | 38 ps |
 
-> **Figure 5.7:** Setup Time Variation under Different PVT Conditions
 
 The results indicate that setup time is influenced by both process and temperature variations.
 
