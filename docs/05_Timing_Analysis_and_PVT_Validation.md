@@ -80,11 +80,7 @@ Based on these results, a common beta ratio of **1.5** was selected for the prop
 
 ---
 
-# Setup and Hold Time Analysis
 
-Sequential circuits such as latches and flip-flops require input data to remain stable around the active clock edge. If the input changes too close to the clock transition, incorrect data may be captured, leading to timing violations.
-
-The two most important timing parameters for sequential circuits are setup time and hold time.
 
 # Setup and Hold Time Analysis
 
