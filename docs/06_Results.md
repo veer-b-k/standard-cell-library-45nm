@@ -36,7 +36,17 @@ During layout development, careful attention was given to transistor folding, di
 
 The developed layouts include combinational logic cells such as inverters, NAND gates, NOR gates, XOR gates, multiplexers, and arithmetic cells, along with representative sequential elements. All layouts follow a consistent design methodology suitable for standard cell library development.
 
-> **Figure 6.1:** Representative Standard Cell Layouts
+![NAND Gate Beta Ratio Analysis](../images/layouts/inverter_layout.png)
+
+**Figure 6.1:** inverter Layout
+
+![d_latch_layout](../images/layouts/d_latch_layout.png)
+
+**Figure 6.2:** d_latch_layout
+
+![tristate_buffer_layout](../images/layouts/tristate_buffer_layout.png)
+
+**Figure 6.3:** tristate_buffer_layout
 
 ---
 
@@ -57,7 +67,6 @@ The measured propagation delays were used to determine the optimum beta ratio fo
 
 The setup and hold time measurements confirmed that the designed sequential cells satisfy the required timing constraints for reliable operation. The results demonstrate that the proposed library provides stable timing performance suitable for digital ASIC applications.
 
-> **Figure 6.4:** Summary of Timing Analysis Results
 
 ---
 
@@ -71,7 +80,10 @@ The analysis showed that although the optimum beta ratio varies slightly under d
 
 These results confirm that the proposed standard cell library exhibits reliable operation over a wide range of manufacturing and environmental conditions.
 
-> **Figure 6.5:** Summary of PVT Validation Results
+![Summary of PVT Validation Results](../images/pvt/inverter_pvt_table.png)
+
+**Figure 6.4:** Summary of PVT Validation Results
+
 
 ---
 
@@ -113,8 +125,5 @@ This chapter presented the overall results obtained during the development of th
 The PVT analysis further confirms that the representative cells maintain stable operation across different manufacturing and environmental conditions. Together, these results validate the effectiveness of the developed library and demonstrate its suitability for digital ASIC design applications.
 
 The developed standard cell library provides a strong foundation for future work involving complete cell characterization, Liberty (.lib) generation, automated synthesis flows, and larger-scale ASIC implementations.
-> **Figure 6.2:** DRC Verification Results
-
-> **Figure 6.3:** LVS Verification Results
 
 ---
