@@ -87,9 +87,11 @@ The optimum beta ratio was obtained when the rise and fall delays were nearly id
 - Optimum PMOS Width = **186 nm**
 - Optimum Beta Ratio = **1.55**
 
-> **Insert Figure:** Inverter beta ratio graph
+<p align="center">
+  <img src="../images/beta_ratio/inv_beta_analysis.png" alt="Inverter Beta Ratio Analysis" width="700">
+</p>
 
-> **Insert Table:** Inverter delay analysis
+<p align="center"><b>Figure 3.1:</b> Inverter Beta Ratio Analysis.</p>
 
 ---
 
