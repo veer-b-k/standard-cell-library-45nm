@@ -57,7 +57,7 @@ Two propagation delay parameters are commonly measured:
 The average propagation delay is calculated using
 
 \[
-t_{pd}=\frac{t_{PLH}+t_{PHL}}{2}
+pd={tPLH+tPHL}/{2}
 \]
 
 During this work, propagation delay measurements were performed using the schematic netlists of the designed logic gates. These simulations were carried out during beta ratio optimization to determine the optimum transistor sizing for the inverter, NAND gate, and NOR gate.
