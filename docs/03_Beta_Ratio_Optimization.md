@@ -89,7 +89,8 @@ The optimum beta ratio was obtained when the rise and fall delays were nearly id
 
 ![Inverter Beta Ratio Analysis](../images/beta_ratio/inv_beta_analysis.png)
 
-**Figure 3.1:** Inverter Beta Ratio Analysis.
+**Figure 3.2:** Inverter Beta Ratio Analysis.
+
 ---
 
 # NAND Gate Beta Ratio Analysis
