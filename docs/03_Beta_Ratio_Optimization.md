@@ -113,7 +113,7 @@ To accurately characterize the gate:
 
 ![NAND Gate Beta Ratio Analysis](../images/beta_ratio/nand_beta_analysis.png)
 
-**Figure 3.2:** NAND Gate Beta Ratio Analysis.
+**Figure 3.3:** NAND Gate Beta Ratio Analysis.
 
 
 ---
@@ -132,7 +132,7 @@ The optimum beta ratio was determined from the point where the difference betwee
 
 ![NOR Gate Beta Ratio Analysis](../images/beta_ratio/nor_beta_analysis.png)
 
-**Figure 3.3:** NOR Gate Beta Ratio Analysis.
+**Figure 3.4:** NOR Gate Beta Ratio Analysis.
 
 ---
 
