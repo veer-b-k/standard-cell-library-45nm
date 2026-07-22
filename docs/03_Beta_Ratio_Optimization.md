@@ -7,7 +7,7 @@ In CMOS digital circuits, the switching characteristics of PMOS and NMOS transis
 The ratio of PMOS width to NMOS width is referred to as the **beta ratio (β)**.
 
 \[
-\beta = \frac{W_P}{W_N}
+beta = width of pmos/width of nmos
 \]
 
 Selecting an appropriate beta ratio minimizes the difference between rise and fall delays, resulting in balanced circuit performance and improved timing characteristics.
