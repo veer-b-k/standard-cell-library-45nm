@@ -149,7 +149,7 @@ After evaluating the performance trade-offs of all characterized cells, a beta r
 The relationship between transistor widths is:
 
 \[
-W_P = 1.5 \times W_N
+W_P = 1.5 times W_N
 \]
 
 Since:
